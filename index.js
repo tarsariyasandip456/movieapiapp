@@ -198,14 +198,14 @@ app.get("/detail_movie/:number/:name", async (req, res) => {
 //  });
 
  app.get("/downloadbyqulity/:name", async (req, res) => {
-  const cacheKey = `downloadLinksss:${req.params.name}`;
+  // const cacheKey = `downloadLinksss:${req.params.name}`;
 
-  // Check if the data is already cached
-  const cachedData = cache.get(cacheKey);
-  if (cachedData) {
-    console.log("Cache hit");
-    return res.json(cachedData);
-  }
+  // // Check if the data is already cached
+  // const cachedData = cache.get(cacheKey);
+  // if (cachedData) {
+  //   console.log("Cache hit");
+  //   return res.json(cachedData);
+  // }
 
   try {
     const response = await axios.get(`https://linkmake.in/view/${req.params.name}`);
@@ -228,7 +228,7 @@ app.get("/detail_movie/:number/:name", async (req, res) => {
     });
 
     // Cache the download links for future requests with a TTL (time-to-live) of 1 hour (3600 seconds)
-    cache.set(cacheKey, { movieTitle, downloadLinks }, 3600);
+    // cache.set(cacheKey, { movieTitle, downloadLinks }, 3600);
 
     res.json({ movieTitle, downloadLinks });
   } catch (error) {
