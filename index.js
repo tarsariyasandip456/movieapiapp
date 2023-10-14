@@ -16,8 +16,8 @@ const cache = new NodeCache();
 app.use(bodyParser.json())
 
 const corsOpts = {
-    origin: ["http://localhost:3000"],
-  
+    // origin: ["http://localhost:3000"],
+    origin: ["http://filmyindia.kesug.com"],
     methods: [
       'GET',
       'POST',
