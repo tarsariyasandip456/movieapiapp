@@ -7,6 +7,7 @@ const axios=require("axios")
 const cheerio=require("cheerio")
 const cors=require('cors')
 
+const NodeCache = require( "node-cache" );
 
 
 
