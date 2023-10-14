@@ -1,7 +1,7 @@
 {
   "name": "movieapiapp",
   "version": "1.0.0",
-  "main": "function/server.js",
+  "main": "functions/server.js",
   "scripts": {
     "build": "netlify deploy --prod"
   },

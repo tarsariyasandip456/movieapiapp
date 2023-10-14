@@ -433,7 +433,7 @@ app.get("/search_movie/:name", async (req, res) => {
 // app.listen(9000,()=>{
 //     console.log("running",9000)
 // });
-app.use('/.netlify/functions/server', router);  // path must route to lambda
+app.use('/.netlify/functions/server', app);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
