@@ -8,10 +8,12 @@ const cheerio=require("cheerio")
 const cors=require('cors')
 
 
-import { config } from 'dotenv';
 
+const router = express.Router();
+
+require('dotenv').config()
 // Load environment variables from .env
-config();
+
 app.use(bodyParser.urlencoded({ extended: false }))
 const cache = new NodeCache();
 // parse application/json
@@ -40,7 +42,7 @@ const corsOpts = {
   //   movieData.push({ title, link,imageUrl });
   // }
   
-app.get("/top_trend_movie", async (req, res) => {
+router.get("/top_trend_movie", async (req, res) => {
   // Check if the data is already in the cache
   if (cache.topTrend) {
     res.json({ movies: cache.topTrend });
@@ -106,7 +108,7 @@ app.get("/top_trend_movie", async (req, res) => {
 //     res.status(500).json({ error: "An error occurred" });
 //   }
 // });
-app.get("/detail_movie/:number/:name", async (req, res) => {
+router.get("/detail_movie/:number/:name", async (req, res) => {
   try {
     const cacheKey = `movieDetail:${req.params.number}:${req.params.name}`;
 
@@ -206,7 +208,7 @@ const axiosInstance = axios.create({
   
 });
 
-app.get("/downloadbyqulity/:name", async (req, res) => {
+router.get("/downloadbyqulity/:name", async (req, res) => {
   try {
     const response = await axiosInstance.get(`http://linkmake.in/view/${req.params.name}`);
     const $ = cheerio.load(response.data);
@@ -234,7 +236,7 @@ app.get("/downloadbyqulity/:name", async (req, res) => {
   }
 });
 
- app.get("/latest_update_movie", async (req, res) => {
+ router.get("/latest_update_movie", async (req, res) => {
 //  try {
 //  const response = await axios.get(`https://filmyfly.art/`);
 //  const $ = cheerio.load(response.data);
@@ -331,7 +333,7 @@ if (cache.latestUpdate) {
   }
 }
 });
-app.get("/search_movie/:name", async (req, res) => {
+router.get("/search_movie/:name", async (req, res) => {
    const searchTerm = req.params.name;
 
   // Check if the data is already in the cache
@@ -433,7 +435,7 @@ app.get("/search_movie/:name", async (req, res) => {
 // app.listen(9000,()=>{
 //     console.log("running",9000)
 // });
-app.use('/.netlify/functions/server', app);  // path must route to lambda
+app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
