@@ -206,7 +206,7 @@ const axiosInstance = axios.create({
 
 app.get("/downloadbyqulity/:name", async (req, res) => {
   try {
-    const response = await axiosInstance.get(`https://linkmake.in/view/${req.params.name}`);
+    const response = await axiosInstance.get(`http://linkmake.in/view/${req.params.name}`);
     const $ = cheerio.load(response.data);
 
     // Extract the movie title
