@@ -196,19 +196,17 @@ app.get("/detail_movie/:number/:name", async (req, res) => {
 //      res.status(500).json({ error: "An error occurred" });
 //    }
 //  });
+const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36';
+const axiosInstance = axios.create({
+  headers: {
+    'User-Agent': userAgent,
+  },
+  
+});
 
- app.get("/downloadbyqulity/:name", async (req, res) => {
-  // const cacheKey = `downloadLinksss:${req.params.name}`;
-
-  // // Check if the data is already cached
-  // const cachedData = cache.get(cacheKey);
-  // if (cachedData) {
-  //   console.log("Cache hit");
-  //   return res.json(cachedData);
-  // }
-
+app.get("/downloadbyqulity/:name", async (req, res) => {
   try {
-    const response = await axios.get(`https://linkmake.in/view/${req.params.name}`);
+    const response = await axiosInstance.get(`https://linkmake.in/view/${req.params.name}`);
     const $ = cheerio.load(response.data);
 
     // Extract the movie title
@@ -227,15 +225,13 @@ app.get("/detail_movie/:number/:name", async (req, res) => {
       downloadLinks.push({ text: linkText, url: linkUrl });
     });
 
-    // Cache the download links for future requests with a TTL (time-to-live) of 1 hour (3600 seconds)
-    // cache.set(cacheKey, { movieTitle, downloadLinks }, 3600);
-
     res.json({ movieTitle, downloadLinks });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error:error});
+    res.status(500).json({ error: error.message });
   }
 });
+
  app.get("/latest_update_movie", async (req, res) => {
 //  try {
 //  const response = await axios.get(`https://filmyfly.art/`);
