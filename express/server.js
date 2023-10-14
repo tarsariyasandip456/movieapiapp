@@ -1,15 +1,17 @@
-import express from "express";
-import axios from "axios";
-import cheerio from "cheerio";
-import bodyParser from "body-parser";
-import cors from 'cors'
-import serverless from 'serverless-http'
-import NodeCache from "node-cache";
+const express = require('express');
+const path = require('path');
+const serverless = require('serverless-http');
+const app = express();
+const bodyParser = require('body-parser');
+const axios=require("axios")
+const cheerio=require("cheerio")
+const cors=require('cors')
+
+
 import { config } from 'dotenv';
 
 // Load environment variables from .env
 config();
-const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 const cache = new NodeCache();
 // parse application/json
@@ -428,6 +430,11 @@ app.get("/search_movie/:name", async (req, res) => {
 //      res.status(500).json({ error: "An error occurred" });
 //    }
  });
-app.listen(9000,()=>{
-    console.log("running",9000)
-});
+// app.listen(9000,()=>{
+//     console.log("running",9000)
+// });
+app.use('/.netlify/functions/server', router);  // path must route to lambda
+app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
+
+module.exports = app;
+module.exports.handler = serverless(app);

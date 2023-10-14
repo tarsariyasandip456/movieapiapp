@@ -1,13 +1,11 @@
 {
   "name": "movieapiapp",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "function/server.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "netlify deploy --prod"
   },
   "keywords": [],
-  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,6 +15,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "netlify-cli": "^16.7.0",
+    "netlify-lambda": "^2.0.16",
     "node-cache": "^5.1.2",
     "serverless-http": "^3.2.0"
   },
