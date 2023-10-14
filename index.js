@@ -233,7 +233,7 @@ app.get("/detail_movie/:number/:name", async (req, res) => {
     res.json({ movieTitle, downloadLinks });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "An error occurred" });
+    res.status(500).json({ error:error});
   }
 });
  app.get("/latest_update_movie", async (req, res) => {
