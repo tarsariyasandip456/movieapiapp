@@ -156,48 +156,48 @@ app.get("/detail_movie/:number/:name", async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
-app.get("/detail_movie/:number/:name", async (req, res) => {
-  try {
-  const response = await axios.get(`https://filmyfly.art/page-download/${req.params.number}/${req.params.name}`);
-  const $ = cheerio.load(response.data);
+// app.get("/detail_movie/:number/:name", async (req, res) => {
+//   try {
+//   const response = await axios.get(`https://filmyfly.art/page-download/${req.params.number}/${req.params.name}`);
+//   const $ = cheerio.load(response.data);
       
-  const movies = [];
-  const name = $('span:contains("Name:")').parent().text().replace('Name:', '').trim();
-const genre = $('span:contains("Genre:")').parent().text().replace('Genre:', '').trim();
-const duration = $('span:contains("Duration:")').parent().text().replace('Duration:', '').trim();
-const releaseDate = $('span:contains("Release Date:")').parent().text().replace('Release Date:', '').trim();
-const language = $('span:contains("Language:")').parent().text().replace('Language:', '').trim();
-const starcast = $('span:contains("Starcast:")').parent().text().replace('Starcast:', '').trim();
-const quality = $('span:contains("Quality:")').parent().text().replace('Quality:', '').trim();
-const fileSize = $('span:contains("File Size:")').parent().text().replace('File Size:', '').trim();
-const description = $('span:contains("Description:")').parent().text().replace('Description:', '').trim();
-const downloadLink = $('.dlbtn a').attr('href');
-const downloadLinka = $('.desc > a').attr('href');
+//   const movies = [];
+//   const name = $('span:contains("Name:")').parent().text().replace('Name:', '').trim();
+// const genre = $('span:contains("Genre:")').parent().text().replace('Genre:', '').trim();
+// const duration = $('span:contains("Duration:")').parent().text().replace('Duration:', '').trim();
+// const releaseDate = $('span:contains("Release Date:")').parent().text().replace('Release Date:', '').trim();
+// const language = $('span:contains("Language:")').parent().text().replace('Language:', '').trim();
+// const starcast = $('span:contains("Starcast:")').parent().text().replace('Starcast:', '').trim();
+// const quality = $('span:contains("Quality:")').parent().text().replace('Quality:', '').trim();
+// const fileSize = $('span:contains("File Size:")').parent().text().replace('File Size:', '').trim();
+// const description = $('span:contains("Description:")').parent().text().replace('Description:', '').trim();
+// const downloadLink = $('.dlbtn a').attr('href');
+// const downloadLinka = $('.desc > a').attr('href');
 
-// Display the extracted information
+// // Display the extracted information
 
-   // Push the scraped data into the movies array
-   movies.push({
-    Name:name,
-    Genre: genre,
-    Duration:duration,
-    Release_Date: releaseDate,
-    Language:language,
-    Starcast:starcast,
-    Quality:quality,
-    File_Size:fileSize,
-    Description:description,
-    downloadLink:downloadLink || downloadLinka
-   });
+//    // Push the scraped data into the movies array
+//    movies.push({
+//     Name:name,
+//     Genre: genre,
+//     Duration:duration,
+//     Release_Date: releaseDate,
+//     Language:language,
+//     Starcast:starcast,
+//     Quality:quality,
+//     File_Size:fileSize,
+//     Description:description,
+//     downloadLink:downloadLink || downloadLinka
+//    });
 
- res.json({ movies });
-   } catch (error) {
-     console.error(error);
-     res.status(500).json({ error: "An error occurred" });
-   }
- });
+//  res.json({ movies });
+//    } catch (error) {
+//      console.error(error);
+//      res.status(500).json({ error: "An error occurred" });
+//    }
+//  });
 
- app.get("/DownloadByQulity/:name", async (req, res) => {
+ app.get("/downloadbyqulity/:name", async (req, res) => {
   const cacheKey = `downloadLinksss:${req.params.name}`;
 
   // Check if the data is already cached
