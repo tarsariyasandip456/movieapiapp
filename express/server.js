@@ -9,7 +9,7 @@ const cors=require('cors')
 
 
 
-const router = express.Router();
+
 
 require('dotenv').config()
 // Load environment variables from .env
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const cache = new NodeCache();
 // parse application/json
 app.use(bodyParser.json())
-
+const router = express.Router();
 const corsOpts = {
     // origin: ["http://localhost:3000"],
     origin: ["http://filmyindia.kesug.com"],
