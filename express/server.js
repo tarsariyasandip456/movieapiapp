@@ -120,7 +120,7 @@ router.get("/detail_movie/:number/:name", async (req, res) => {
       return res.json(cachedData);
     }
 
-    const response = await axios.get(`https://filmyfly.art/page-download/${req.params.number}/${req.params.name}`);
+    const response = await axios.get(`https://filmyfly.dev/page-download/${req.params.number}/${req.params.name}`);
     const $ = cheerio.load(response.data);
 
     const movies = [];
@@ -342,7 +342,7 @@ router.get("/search_movie/:name", async (req, res) => {
     res.json({ movies: cache[searchTerm] });
   } else {
     try {
-      const response = await axios.get(`https://filmyfly.art/site-search.html?to-search=${searchTerm}`);
+      const response = await axios.get(`https://filmyfly.dev/site-search.html?to-search=${searchTerm}`);
       const $ = cheerio.load(response?.data);
       const movies = [];
 
